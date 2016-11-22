@@ -2,19 +2,20 @@
 # Implement code from this book chapter: http://r4ds.had.co.nz/many-models.html
 
 # Packages
-# install.packages('modelr')
-# install.packages('tidyverse')
+install.packages('modelr')
+install.packages('tidyverse')
 # install.packages('gapminder')
 library(gapminder)
 library(modelr)
 library(tidyverse)
 
 # Initial view of the data with ggplot
-
+View(gapminder)
+ggplot(gapminder, aes(year, lifeExp, group = country)) + geom_line()
 
 # Look only at new zealand
-
-
+nz.data <- gapminder[gapminder$country == 'New Zealand',]
+ggplot(nz.data, aes(year, lifeExp)) + geom_line() + ggtitle("Life Expectancy Over Time in New Zealand")
 
 # Better yet, write your own function to accept a country as a parameter,
 # and produce the same graphics
