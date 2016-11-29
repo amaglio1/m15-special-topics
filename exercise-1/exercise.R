@@ -8,6 +8,7 @@ install.packages('tidyverse')
 library(gapminder)
 library(modelr)
 library(tidyverse)
+library(dplyr)
 
 # Initial view of the data with ggplot
 View(gapminder)
@@ -17,12 +18,15 @@ ggplot(gapminder, aes(year, lifeExp, group = country)) + geom_line()
 nz.data <- gapminder[gapminder$country == 'New Zealand',]
 ggplot(nz.data, aes(year, lifeExp)) + geom_line() + ggtitle("Life Expectancy Over Time in New Zealand")
 
+nz.mod <- lm(lifeExp ~ year, data = nz.data)
+
 # Better yet, write your own function to accept a country as a parameter,
 # and produce the same graphics
 
 # Nest the data by country/continent
-
-
+by.country <- gapminder %>%
+              group_by(country, continent) %>%
+              nest()
 
 # Define a statistical model, and store it in a function
 
